@@ -1,0 +1,65 @@
+---
+name: useDebouncedValue
+menu: State
+route: /useDebouncedValue
+---
+
+import Example from "./examples/DebouncedValue";
+
+# useDebouncedValue
+
+Debounce a value when it is changed.
+
+## Usage
+
+```ts
+function useDebouncedValue<T = any>(
+  value: T,
+  wait?: number
+): [
+  debouncedValue: T,
+  {
+    flush: (finalValue?: T) => void;
+    cancel: () => void;
+  }
+];
+```
+
+Params:
+
+- **`value`:** value that will be changed.
+- **`wait`:** wait time, in milliseconds, default is 0.
+
+Return:
+
+- **`debouncedValue`:** debounced value.
+- **`flush`:** flush funciton. The `finalValue` will be returned as `debouncedValue`.
+- **`cancel`:** cancel debounce timer.
+
+## Example
+
+<Example />
+
+```tsx
+import React, { useState } from "react";
+import { useDebouncedValue } from "@fedlinker/hooks";
+
+function Example() {
+  const [value, setValue] = useState("");
+  const [debouncedValue, { flush }] = useDebouncedValue(value, 1000);
+
+  return (
+    <div>
+      <input
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        placeholder="Please input..."
+      />
+      <button onClick={() => flush()}>Ok</button>
+      <div>Debounced value: {debouncedValue}</div>
+    </div>
+  );
+}
+
+export default Example;
+```

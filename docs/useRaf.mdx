@@ -1,0 +1,90 @@
+---
+name: useRaf
+menu: Event Loop
+route: /useRaf
+---
+
+import Example from "./examples/Raf";
+
+# useRaf
+
+Use this hook to handle with JavaScript animation with [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
+
+## Usage
+
+```ts
+function useRaf(
+  fn: (percentage: number) => void,
+  duration?: number,
+  options?: { imperative?: boolean; disabled?: boolean }
+): [start: () => void, cancel: () => void];
+```
+
+Params:
+
+- **`fn`:** function expected to be executed. The `percentage` parameter indicates the percentage of time spent.
+- **`duration`:** time of animation, in milliseconds, default is 0. When the `duration` changes, it will cancel previous animation automatically, and start a new animation if `options.disabled` is not truthy.
+- **`options.imperative`:** start animation manually by using the `start` function.
+- **`options.disabled`:** disable animation, will cancel previous animation.
+
+Return:
+
+- **`start`:** start animation.
+- **`cancel`:** cancel animation.
+
+## Example
+
+<Example />
+
+```tsx
+import React, { useState } from "react";
+import { useRaf } from "@fedlinker/hooks";
+
+function Example() {
+  const [imperative, setImperative] = useState(true);
+  const [disabled, setDisabled] = useState(false);
+  const [duration, setDuration] = useState(1000);
+
+  const [percentage, setPercentage] = useState(0);
+  const [start, cancel] = useRaf(setPercentage, duration, {
+    imperative,
+    disabled,
+  });
+
+  return (
+    <>
+      <button onClick={start}>Start</button>
+      <button onClick={cancel}>Cancel</button>
+      <button
+        onClick={() => {
+          setDuration(Math.round(Math.random() * 10000));
+        }}
+      >
+        Random duration time
+      </button>
+      <input
+        type="checkbox"
+        checked={imperative}
+        onChange={(event) => {
+          setImperative(event.target.checked);
+        }}
+      /> Imperative
+      <input
+        type="checkbox"
+        checked={disabled}
+        onChange={(event) => {
+          setDisabled(event.target.checked);
+        }}
+      />{" "}
+      Disabled
+      <br />
+      Duration time: {duration}. Progress:{" "}
+      <progress max="100" value={percentage * 100}>
+        {percentage * 100}
+      </progress>
+    </>
+  );
+}
+
+export default Example;
+```

@@ -1,0 +1,32 @@
+---
+name: useDocumentTitle
+menu: DOM and BOM
+route: /useDocumentTitle
+---
+
+# useDocumentTitle
+
+Set document title.
+
+## Usage
+
+```ts
+function useDocumentTitle(title: string, options?: { restore?: boolean }): void;
+```
+
+Params:
+
+- **`title`:** the title of the document.
+- **`options.restore`:** whether to restore the previous title, default is false.
+
+## Example
+
+```tsx
+import React from 'react'
+import { useDocumentTitle } from '@fedlinker/hooks';
+
+function Example() {
+  useDocumentTitle('New Title');
+  ...
+}
+```

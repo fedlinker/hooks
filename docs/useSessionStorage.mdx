@@ -1,0 +1,72 @@
+---
+name: useSessionStorage
+menu: DOM and BOM
+route: /useSessionStorage
+---
+
+import Example from "./examples/SessionStorage";
+
+# useSessionStorage
+
+Get or set sessionStorage.
+
+## Usage
+
+```ts
+function useSessionStorage<T = any>(
+  key: string,
+  defaultValue?: T,
+  options?: {
+    serialize?: (value: T) => string;
+    deserialize?: (raw: string) => T;
+  }
+): [
+  value: T | null,
+  {
+    set: (newValue: T) => void;
+    remove: () => void;
+  }
+];
+```
+
+Params:
+
+- **`key`:** sessionStorage key.
+- **`defaultValue`:** the default value when the `key` is not in sessionStorage.
+- **`options.serialize`:** serialization function, default is `JSON.stringify`.
+- **`options.deserialize`:** deserialization function, default is `JSON.parse`.
+
+Return:
+
+- **`value`:** parsed value by `options.deserialize`. Return `null` if the `key` is not in sessionStorage and the `defaultValue` is not presented.
+- **`set`:** the function of setting sessionStorage.
+- **`remove`:** the function of removing sessionStorage.
+
+## Example
+
+<Example />
+
+```tsx
+import React from "react";
+import { useSessionStorage } from "@fedlinker/hooks";
+
+function Example() {
+  const [value, { set, remove }] = useSessionStorage("random", 0);
+
+  function handleSetClick() {
+    set(Math.round(Math.random() * 10));
+  }
+
+  return (
+    <>
+      <button onClick={handleSetClick}>
+        Set random number in sessionStorage
+      </button>
+      <button onClick={remove}>Remove</button>
+      {value}
+    </>
+  );
+}
+
+export default Example;
+```

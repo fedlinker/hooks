@@ -1,0 +1,32 @@
+---
+name: useLayoutUpdate
+menu: Lifycycles
+route: /useLayoutUpdate
+---
+
+# useLayoutUpdate
+
+It's similar to [`useUpdate`](./useUpdate), except it uses [`useIsomorphicLayoutEffect`](./useIsomorphicLayoutEffect) internally.
+
+## Usage
+
+```ts
+function useLayoutUpdate(
+  callback: React.EffectCallback,
+  deps?: React.DependencyList
+): void;
+```
+
+## Example
+
+```tsx
+import React from "react";
+import { useLayoutUpdate } from "@fedlinker/hooks";
+
+function Example() {
+  useLayoutUpdate(() => {
+    console.log("Component is updated");
+  });
+  ...
+}
+```

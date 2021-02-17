@@ -1,0 +1,35 @@
+---
+name: useMounted
+menu: State
+route: /useMounted
+---
+
+# useMounted
+
+Return `false` when the component first rendering, otherwise return `true`.
+
+## Usage
+
+```ts
+function useMounted(): boolean;
+```
+
+## Example
+
+```tsx
+import React, { useEffect } from "react";
+import { useMounted, useRerender } from "@fedlinker/hooks";
+
+function Example() {
+  const mounted = useMounted();
+  const rerender = useRerender();
+
+  console.log("Is the component mounted: ", mounted ? "yes" : "no");
+
+  useEffect(() => {
+    rerender();
+  }, []);
+
+  ...
+}
+```

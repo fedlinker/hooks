@@ -1,0 +1,29 @@
+---
+name: useUnmount
+menu: Lifycycles
+route: /useUnmount
+---
+
+# useUnmount
+
+Run `effect` function when the component will unmount.
+
+## Usage
+
+```ts
+function useUnmount(callback: () => void): void;
+```
+
+## Example
+
+```tsx
+import React from "react";
+import { useUnmount } from "@fedlinker/hooks";
+
+function Example() {
+  useUnmount(() => {
+    console.log("Component will unmount");
+  });
+  ...
+}
+```

@@ -1,0 +1,31 @@
+---
+name: usePersistedCallback
+menu: Callbacks
+route: /usePersistedCallback
+---
+
+# usePersistedCallback
+
+Return a same function no matter whether the `callback` parameter changes.
+
+## Usage
+
+```ts
+function usePersistedCallback<T extends (...args: any[]) => any>(
+  callback: T
+): T;
+```
+
+## Example
+
+```tsx
+import React from "react";
+import { usePersistedCallback } from "@fedlinker/hooks";
+
+function Example() {
+  const persistedCallback = usePersistedCallback(() => {
+    // Do something
+  });
+  ...
+}
+```

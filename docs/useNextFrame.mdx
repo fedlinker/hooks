@@ -1,0 +1,93 @@
+---
+name: useNextFrame
+menu: Event Loop
+route: /useNextFrame
+---
+
+import Example from "./examples/NextFrame";
+
+# useNextFrame
+
+This hook ensures that the `fn` function is invoked after the current browser painting. Usually used to perform CSS animation.
+
+## Usage
+
+```ts
+function useNextFrame(
+  fn: () => void,
+  options?: { imperative?: boolean; disabled?: boolean }
+): [start: () => void, cancel: () => void];
+```
+
+Params:
+
+- **`fn`:** function expected to be executed.
+- **`options.imperative`:** disable automatically calling the `fn` when the component is mounted.
+- **`options.disabled`:** disable calling the `fn` anytime.
+
+Return:
+
+- **`start`:** set a timer to excute the `fn` function after current painting.
+- **`cancel`:** cancel the timer.
+
+## Example
+
+<Example />
+
+```tsx
+import React, { useState } from "react";
+import { useNextFrame, useTimeout } from "@fedlinker/hooks";
+
+const duration = 1000;
+
+function Example() {
+  const [display, setDisplay] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const [startVisible, cancelVisible] = useNextFrame(
+    () => {
+      setVisible(true);
+    },
+    { imperative: true }
+  );
+
+  const [startHide, cancelHide] = useTimeout(
+    () => {
+      setDisplay(false);
+    },
+    duration,
+    { imperative: true }
+  );
+
+  function handleShowClick() {
+    cancelHide();
+    setDisplay(true);
+    startVisible();
+  }
+
+  function handleHideClick() {
+    cancelVisible();
+    setVisible(false);
+    startHide();
+  }
+
+  return (
+    <div>
+      <button onClick={handleShowClick}>Show</button>
+      <button onClick={handleHideClick}>Hide</button>
+      <div
+        style={{
+          display: display ? "block" : "none",
+          opacity: visible ? 1 : 0,
+          transition: `opacity ease ${duration / 1000}s`,
+          width: 100,
+          height: 100,
+          backgroundColor: "cyan",
+        }}
+      ></div>
+    </div>
+  );
+}
+
+export default Example;
+```

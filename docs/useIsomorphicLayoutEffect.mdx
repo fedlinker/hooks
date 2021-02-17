@@ -1,0 +1,32 @@
+---
+name: useIsomorphicLayoutEffect
+menu: Effects
+route: /useIsomorphicLayoutEffect
+---
+
+# useIsomorphicLayoutEffect
+
+In the DOM environment, `useIsomorphicLayoutEffect` is the same as `React.useLayoutEffect`. When server-side rendering, it is the same as `React.useEffect` to prevent warnings.
+
+## Usage
+
+```ts
+function useIsomorphicLayoutEffect(
+  effect: React.EffectCallback,
+  deps?: React.DependencyList
+): void;
+```
+
+## Example
+
+```tsx
+import React from "react";
+import { useIsomorphicLayoutEffect } from "@fedlinker/hooks";
+
+function Example() {
+  useIsomorphicLayoutEffect(() => {
+    console.log("Layout effect");
+  });
+  ...
+}
+```

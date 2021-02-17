@@ -1,0 +1,32 @@
+---
+name: useWindowSize
+menu: DOM and BOM
+route: /useWindowSize
+---
+
+import Example from "./examples/WindowSize";
+
+# useWindowSize
+
+Get window size. Return `[0, 0]` when server-side rendering.
+
+## Usage
+
+```ts
+function useWindowSize(): [width: number, height: number];
+```
+
+## Example
+
+<Example />
+
+```tsx
+import { useWindowSize } from "@fedlinker/hooks";
+
+function Example() {
+  const [width, height] = useWindowSize();
+  return `Width: ${width}; Height: ${height}`;
+}
+
+export default Example;
+```

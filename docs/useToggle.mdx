@@ -1,0 +1,63 @@
+---
+name: useToggle
+menu: State
+route: /useToggle
+---
+
+import Example from "./examples/Toggle";
+
+# useToggle
+
+Use boolean value. The value can be changed by the returned toggle functions.
+
+## Usage
+
+```ts
+function useToggle(
+  initialValue?: boolean
+): [
+  value: boolean,
+  actions: {
+    toggle: (newValue?: boolean) => void;
+    toggleOn: () => void;
+    toggleOff: () => void;
+  }
+];
+```
+
+Params:
+
+- **`initialValue`:** optional initial value, default is false.
+
+Return:
+
+- **`value`:** boolean value, can be changed by the following functions.
+- **`toggle`:** set the value according to the newValue param. If the newValue is undefined, toggle the value.
+- **`toggleOn`:** set the value to true.
+- **`toggleOff`:** set the value to false.
+
+## Example
+
+<Example />
+
+```tsx
+import React from "react";
+import { useToggle } from "@fedlinker/hooks";
+
+function Example() {
+  const [visible, { toggle, toggleOn, toggleOff }] = useToggle(true);
+
+  return (
+    <>
+      <button onClick={() => toggle()}>Toggle</button>
+      <button onClick={toggleOn}>Toggle on</button>
+      <button onClick={toggleOff}>Toggle off</button>
+      <p style={{ display: visible ? "block" : "none" }}>
+        Example text can be toggled to display or not by the buttons above.
+      </p>
+    </>
+  );
+}
+
+export default Example;
+```

@@ -1,0 +1,32 @@
+---
+name: useDarkTheme
+menu: DOM and BOM
+route: /useDarkTheme
+---
+
+import Example from "./examples/DarkTheme";
+
+# useDarkTheme
+
+Detect whether the system theme is in dark mode.
+
+## Usage
+
+```ts
+function useDarkTheme(): boolean;
+```
+
+## Example
+
+<Example />
+
+```tsx
+import { useDarkTheme } from "@fedlinker/hooks";
+
+function Example() {
+  const theme = useDarkTheme() ? "dark" : "light";
+  return "Current theme is: " + theme;
+}
+
+export default Example;
+```

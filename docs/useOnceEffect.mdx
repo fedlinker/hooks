@@ -1,0 +1,35 @@
+---
+name: useOnceEffect
+menu: Effects
+route: /useOnceEffect
+---
+
+# useOnceEffect
+
+Run `effect` function only once. It equals to `React.useEffect(callback, [])`. Especially, its deps is an empty array.
+
+## Usage
+
+```ts
+function useOnceEffect(effect: React.EffectCallback): void;
+```
+
+## Example
+
+```tsx
+import React from "react";
+import { useOnceEffect } from "@fedlinker/hooks";
+
+function Example() {
+  useOnceEffect(() => {
+    const timer = setTimeout(() => {
+      // Do something
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  });
+  ...
+}
+```

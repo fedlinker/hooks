@@ -1,0 +1,32 @@
+---
+name: useUpdate
+menu: Lifycycles
+route: /useUpdate
+---
+
+# useUpdate
+
+Run `effect` function after the component is updated or the `deps` array are changed, ignore on mount.
+
+## Usage
+
+```ts
+function useUpdate(
+  effect: React.EffectCallback,
+  deps?: React.DependencyList
+): void;
+```
+
+## Example
+
+```tsx
+import React from "react";
+import { useUpdate } from "@fedlinker/hooks";
+
+function Example() {
+  useUpdate(() => {
+    console.log("Component is updated");
+  });
+  ...
+}
+```

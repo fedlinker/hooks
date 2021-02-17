@@ -1,0 +1,45 @@
+---
+name: useRerender
+menu: Callbacks
+route: /useRerender
+---
+
+import Example from "./examples/Rerender";
+
+# useRerender
+
+This hook return a function that you can use to rerender the component. It is usually used to rerender mutable data.
+
+## Usage
+
+```ts
+function useRerender(): () => void;
+```
+
+## Example
+
+<Example />
+
+```tsx
+import React from "react";
+import { useRerender } from "@fedlinker/hooks";
+
+let count = 0;
+
+function Example() {
+  const rerender = useRerender();
+
+  function handleClick() {
+    count++;
+    rerender();
+  }
+
+  return (
+    <>
+      <button onClick={handleClick}>+1</button> {count}
+    </>
+  );
+}
+
+export default Example;
+```

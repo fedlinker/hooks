@@ -1,0 +1,65 @@
+---
+name: useThrottledValue
+menu: State
+route: /useThrottledValue
+---
+
+import Example from "./examples/ThrottledValue";
+
+# useThrottledValue
+
+Throttle a value when it is changed.
+
+## Usage
+
+```ts
+function useThrottledValue<T = any>(
+  value: T,
+  wait?: number
+): [
+  throttledValue: T,
+  {
+    flush: (finalValue?: T) => void;
+    cancel: () => void;
+  }
+];
+```
+
+Params:
+
+- **`value`:** value that will be changed.
+- **`wait`:** wait time, in milliseconds, default is 0.
+
+Return:
+
+- **`throttledValue`:** throttled value.
+- **`flush`:** flush funciton. The `finalValue` will be returned as `throttledValue`.
+- **`cancel`:** cancel throttle timer.
+
+## Example
+
+<Example />
+
+```tsx
+import React, { useState } from "react";
+import { useThrottledValue } from "@fedlinker/hooks";
+
+function Example() {
+  const [value, setValue] = useState("");
+  const [throttledValue, { flush }] = useThrottledValue(value, 1000);
+
+  return (
+    <div>
+      <input
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        placeholder="Please input..."
+      />
+      <button onClick={() => flush()}>Ok</button>
+      <div>Throttled value: {throttledValue}</div>
+    </div>
+  );
+}
+
+export default Example;
+```

@@ -1,0 +1,29 @@
+---
+name: useMount
+menu: Lifycycles
+route: /useMount
+---
+
+# useMount
+
+Run `effect` function after the component is mounted.
+
+## Usage
+
+```ts
+function useMount(effect: () => void): void;
+```
+
+## Example
+
+```tsx
+import React from "react";
+import { useMount } from "@fedlinker/hooks";
+
+function Example() {
+  useMount(() => {
+    console.log("Component is mounted");
+  });
+  ...
+}
+```
